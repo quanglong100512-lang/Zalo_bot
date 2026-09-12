@@ -18,8 +18,11 @@ app.get("/", (req, res) => {
     res.send("Zalo AI Bot is running and ready for webhooks!");
 });
 
-// Nhận Webhook từ Zalo Bot Manager / Zalo OA gửi đến
+// Nhận Webhook từ Zalo Bot Manager
 app.post("/webhook", async (req, res) => {
+    // 1. Phản hồi ngay lập tức cho Zalo mã 200 để Zalo biết server đang hoạt động ngon lành (tránh lỗi timeout)
+    res.status(200).json({ status: "success" });
+
     try {
         const data = req.body;
         console.log("Nhận dữ liệu từ Zalo:", JSON.stringify(data));
@@ -31,17 +34,14 @@ app.post("/webhook", async (req, res) => {
 
             console.log(`Tin nhắn từ ${senderId}: ${userText}`);
 
-            // Gọi Gemini AI để lấy câu trả lời
+            // 2. Gọi Gemini AI để lấy câu trả lời
             const aiReplyText = await getGeminiReply(userText);
 
-            // Gửi phản hồi lại cho người dùng qua Zalo OpenAPI
+            // 3. Gửi phản hồi lại cho người dùng qua Zalo OpenAPI
             await sendZaloMessage(senderId, aiReplyText);
         }
-
-        res.status(200).json({ status: "success" });
     } catch (error) {
-        console.error("Lỗi xử lý webhook:", error);
-        res.status(500).json({ status: "error" });
+        console.error("Lỗi xử lý webhook ngầm:", error);
     }
 });
 
