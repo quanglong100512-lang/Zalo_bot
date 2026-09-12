@@ -1,5 +1,5 @@
 {
-  "name": "zalo-ai-bot",
+  "name": "bot activite",
   "version": "1.0.0",
   "description": "Zalo AI Bot integrated with Google Gemini",
   "main": "index.js",
