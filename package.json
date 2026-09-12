@@ -1,0 +1,17 @@
+{
+  "name": "zalo-ai-bot",
+  "version": "1.0.0",
+  "description": "Zalo AI Bot integrated with Google Gemini",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "node-zalo-bot": "^1.0.0",
+    "express": "^4.19.2",
+    "@google/genai": "^0.1.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}
